@@ -32,4 +32,4 @@ feature_labels = {"feature_id": "1", "performance_id": "1"}
 
 bound_feature_metric = feature_metric.bind(feature_labels)
 bound_feature_metric.add(25)
-time.sleep(10)
+time.sleep(40)

@@ -1,5 +1,4 @@
 """Main module."""
-import pymysql
 from sqlalchemy import create_engine
 import pandas as pd
 import collections
@@ -28,10 +27,10 @@ class FeatureMetricsExporter(MetricsExporter):
         Connect to the database
         """
         eng_str = 'mysql+mysqldb://{0}:{1}@{2}:7706/{3}'.format('***',
-                                                           '****',
-                                                           '10.2.1.43',
-                                                           'subscriber_data')
-        self.engine = create_engine(eng_str, pool_recycle=3600, echo=True)
+                                                                '***',
+                                                                '10.2.1.43',
+                                                                'subscriber_data')
+        self.engine = create_engine(eng_str, pool_recycle=60, echo=True)
 
     def export(
         self, metric_records: Sequence[MetricRecord]
@@ -53,7 +52,7 @@ class FeatureMetricsExporter(MetricsExporter):
                           if_exists="append", index=False)
             except ValueError as e:
                 print(e)
-            print(df)
+                return MetricsExportResult.FAILURE
         return MetricsExportResult.SUCCESS
 
     def shutdown(self) -> None:
